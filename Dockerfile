@@ -33,15 +33,8 @@ COPY . /var/www/html
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 RUN chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
 
-# Install Laravel dependencies
-# RUN composer install --optimize-autoloader --no-dev
-
-# Configure Apache to use port 80
-RUN sed -i 's/Listen 80/Listen 8000/g' /etc/apache2/ports.conf
-RUN sed -i 's/<VirtualHost *:80>/<VirtualHost *:8000>/g' /etc/apache2/sites-available/000-default.conf
-
-# Expose port 80 for Apache
+# Expose port 80 for web traffic
 EXPOSE 80
 
-# Start Apache with port 80
-CMD apache2-foreground
+# Start Laravel application with port 80
+CMD php artisan serve --host=0.0.0.0 --port=80
