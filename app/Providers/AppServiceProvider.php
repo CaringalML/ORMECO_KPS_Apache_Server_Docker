@@ -26,5 +26,8 @@ class AppServiceProvider extends ServiceProvider
     {
         //
         Paginator::useBootstrap();
+
+        // Force all routes to use HTTPS
+        URL::forceScheme('https');
     }
 }
